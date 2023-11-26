@@ -50,12 +50,14 @@ st.session_state.messages.append({"role": "user", "content": '당신의 의견�
 with st.chat_message("assistant"):
     message_placeholder = st.empty()
     full_response = ""
-    for response in openai.ChatCompletion.create(model='gpt-3.5-turbo', messages=messages,
-        stream=True,
-    ):
-        full_response += response.choices[0].delta.get("content", "")
-        message_placeholder.markdown(full_response + "▌")
-        time.sleep(0.1)
+    try:
+        for response in openai.ChatCompletion.create(model='gpt-3.5-turbo', messages=messages, stream=True):
+            full_response += response.choices[0].delta.get("content", "")
+            message_placeholder.markdown(full_response + "▌")
+            time.sleep(0.1)
+    except openai.error.APIError as e:
+        st.error(f"OpenAI API 호출 중 오류 발생: {e}")
+
     message_placeholder.markdown(full_response)
     messages.append(full_response)
     st.session_state.messages.append({"role": "assistant", "content": full_response})
