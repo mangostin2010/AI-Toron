@@ -4,7 +4,7 @@ import time
 from streamlit_extras.add_vertical_space import add_vertical_space 
 import random
 
-st.set_page_config(page_title="AI와 토론하다", page_icon="💬")
+st.set_page_config(page_title="AI와 토론하다, AITORON", page_icon="💬")
 st.markdown('<style>' + open('./style.css').read() + '</style>', unsafe_allow_html=True)
 
 TopicList = ['모든 기독교인은 교회에 꼭 가야하나요?', '착하게 살면 되지 왜 꼭 하나님을 믿어야 합니까?', '교회가서 헌금을 꾝 내야하나요?', '크리스찬도 문신을 해도 되나요?', '기독교에서 동성애에 대한 입장은 무엇인가요?', '기독교에서의 음주에 대한 입장은 어떻게 되나요?', '기독교인이 마술이나 요술에 대해 어떻게 생각해야 할까요?', '기독교인이 불륜 저지르면 어떻게 해야 할까요? 용서는 가능한가요?']
@@ -13,7 +13,7 @@ if "session_topic" not in st.session_state:
     st.session_state.session_topic = random.choice(TopicList)
 
 Topic = st.session_state.session_topic
-st.header(':rainbow[AI와 토론하다]', divider='rainbow')
+st.header(':rainbow[AI와 토론하다, AITORON]', divider='rainbow')
 st.subheader(Topic)
 
 add_vertical_space(2)
