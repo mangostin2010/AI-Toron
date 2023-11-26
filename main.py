@@ -22,7 +22,7 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 openai.api_base = 'https://api.chatanywhere.cn'
-openai.api_key = "sk-ERbEZ6g35cYPM7DcMylctYXpg92zF60UaaVGMZWfPU1x7dpX"
+openai.api_key = st.secrets["api"]
 
 systemrole = f"""
 You are a person who is very good at discussioning something.
