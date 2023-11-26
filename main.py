@@ -1,4 +1,4 @@
-import openai
+from openai import OpenAI
 import streamlit as st
 import time
 from streamlit_extras.add_vertical_space import add_vertical_space 
@@ -21,9 +21,13 @@ add_vertical_space(2)
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-openai.api_base = 'https://api.chatanywhere.cn'
-openai.api_key = st.secrets["api"]
-
+#openai.api_base = 'https://api.chatanywhere.cn'
+#openai.api_key = st.secrets["api"]
+client = OpenAI(
+    # defaults to os.environ.get("OPENAI_API_KEY")
+    api_key=st.secrets["api"],
+    api_base='https://api.chatanywhere.cn'
+)
 systemrole = f"""
 You are a person who is very good at discussioning something.
 Follow this rule:
