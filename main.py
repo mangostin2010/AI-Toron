@@ -74,3 +74,4 @@ if User_Message:
       messages.append(full_response)
       st.session_state.messages.append({"role": "assistant", "content": full_response})
       st.markdown(st.session_state.messages)
+      st.markdown(messages)
