@@ -37,7 +37,8 @@ add_vertical_space(2)
 #streamlit 세션관리
 if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "system", "content": systemrole}],
-messages = st.session_state.messages
+    
+
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
@@ -46,7 +47,7 @@ openai.api_base = 'https://api.chatanywhere.cn'
 openai.api_key = "sk-ERbEZ6g35cYPM7DcMylctYXpg92zF60UaaVGMZWfPU1x7dpX"
 
 User_Message = st.chat_input("의견을 나누고 반박하세요!")
-messages
+message
 
 if User_Message:
   Chat_User = st.chat_message("user")
