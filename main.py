@@ -74,5 +74,3 @@ if User_Message:
       message_placeholder.markdown(full_response)
       st.session_state.Q_and_A.append({"role": "assistant", "content": full_response})
       st.session_state.messages.append({"role": "assistant", "content": full_response})
-      st.markdown(st.session_state.messages)
-      st.markdown(st.session_state.Q_and_A)
