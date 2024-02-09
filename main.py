@@ -17,6 +17,18 @@ Topic = st.session_state.session_topic
 st.header(':rainbow[AI와 토론하다, AITORON]', divider='rainbow')
 st.subheader(Topic)
 
+add_vertical_space(2)
+#streamlit 세션관리
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+openai.api_base = 'https://api.chatanywhere.cn'
+openai.api_key = "sk-ERbEZ6g35cYPM7DcMylctYXpg92zF60UaaVGMZWfPU1x7dpX"
+
 systemrole = f"""
 You are a person who is very good at discussioning something.
 Follow this rule:
@@ -33,35 +45,30 @@ Follow this rule:
   Discussion Topic: {Topic}
   """
 
-add_vertical_space(2)
-#streamlit 세션관리
-if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "system", "content": systemrole}],
-    
-
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
-openai.api_base = 'https://api.chatanywhere.cn'
-openai.api_key = "sk-ERbEZ6g35cYPM7DcMylctYXpg92zF60UaaVGMZWfPU1x7dpX"
+messages = [
+    {"role": "system", "content": systemrole},
+]
 
 User_Message = st.chat_input("의견을 나누고 반박하세요!")
+
 
 if User_Message:
   Chat_User = st.chat_message("user")
 
   if Chat_User.markdown(User_Message):
+    item =  {"role": "user", "content": User_Message}
+    messages.append(item)
     st.session_state.messages.append({"role": "user", "content": User_Message})
 
   with st.chat_message("assistant"):
       message_placeholder = st.empty()
       full_response = ""
-      for response in openai.ChatCompletion.create(model='gpt-3.5-turbo', messages=st.session_state.messages,
+      for response in openai.ChatCompletion.create(model='gpt-3.5-turbo', messages=messages,
           stream=True,
       ):
           full_response += response.choices[0].delta.get("content", "")
           message_placeholder.markdown(full_response + "▌")
           time.sleep(0.1)
       message_placeholder.markdown(full_response)
+      messages.append(full_response)
       st.session_state.messages.append({"role": "assistant", "content": full_response})
