@@ -71,7 +71,7 @@ if User_Message:
           time.sleep(0.1)
       
       message_placeholder.markdown(full_response)
-      messages.append(full_response)
+      messages.append({"role": "assistant", "content": full_response})
       st.session_state.messages.append({"role": "assistant", "content": full_response})
       st.markdown(st.session_state.messages)
       st.markdown(messages)
