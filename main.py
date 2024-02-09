@@ -45,7 +45,7 @@ Follow this rule:
   Discussion Topic: {Topic}
   """
 
-messages = [
+st.session_state.Q_and_A = [
     {"role": "system", "content": systemrole},
 ]
 
@@ -57,13 +57,13 @@ if User_Message:
 
   if Chat_User.markdown(User_Message):
     item =  {"role": "user", "content": User_Message}
-    messages.append(item)
+    st.session_state.Q_and_A.append(item)
     st.session_state.messages.append({"role": "user", "content": User_Message})
 
   with st.chat_message("assistant"):
       message_placeholder = st.empty()
       full_response = ""
-      for response in openai.ChatCompletion.create(model='gpt-3.5-turbo', messages=messages,
+      for response in openai.ChatCompletion.create(model='gpt-3.5-turbo', messages=st.session_state.Q_and_A,
           stream=True,
       ):
           full_response += response.choices[0].delta.get("content", "")
@@ -71,7 +71,7 @@ if User_Message:
           time.sleep(0.1)
       
       message_placeholder.markdown(full_response)
-      messages.append({"role": "assistant", "content": full_response})
+      st.session_state.Q_and_A.append({"role": "assistant", "content": full_response})
       st.session_state.messages.append({"role": "assistant", "content": full_response})
       st.markdown(st.session_state.messages)
-      st.markdown(messages)
+      st.markdown(st.session_state.Q_and_A)
