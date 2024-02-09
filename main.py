@@ -45,7 +45,7 @@ Follow this rule:
   Discussion Topic: {Topic}
   """
 
-if "messages" not in st.session_state:
+if "Q_and_A" not in st.session_state:
     st.session_state.Q_and_A = [
         {"role": "system", "content": systemrole},
     ]
