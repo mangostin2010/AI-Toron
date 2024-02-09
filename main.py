@@ -40,8 +40,8 @@ if "messages" not in st.session_state:
     
 
 for message in st.session_state.messages:
-    with st.chat_message(st.session_state.messages["role"]):
-        st.markdown(st.session_state.messages["content"])
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
 openai.api_base = 'https://api.chatanywhere.cn'
 openai.api_key = "sk-ERbEZ6g35cYPM7DcMylctYXpg92zF60UaaVGMZWfPU1x7dpX"
