@@ -45,9 +45,10 @@ Follow this rule:
   Discussion Topic: {Topic}
   """
 
-st.session_state.Q_and_A = [
-    {"role": "system", "content": systemrole},
-]
+if "messages" not in st.session_state:
+    st.session_state.Q_and_A = [
+        {"role": "system", "content": systemrole},
+    ]
 
 User_Message = st.chat_input("의견을 나누고 반박하세요!")
 
