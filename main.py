@@ -47,8 +47,7 @@ openai.api_base = 'https://api.chatanywhere.cn'
 openai.api_key = "sk-ERbEZ6g35cYPM7DcMylctYXpg92zF60UaaVGMZWfPU1x7dpX"
 
 User_Message = st.chat_input("의견을 나누고 반박하세요!")
-message
-
+message, messages
 if User_Message:
   Chat_User = st.chat_message("user")
 
